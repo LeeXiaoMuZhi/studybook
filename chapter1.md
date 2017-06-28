@@ -1,2 +1,2 @@
 # First Chapter
-##GitBook 适用语法
+##GitBook 使用语法
