@@ -39,11 +39,10 @@ ARC还引入了新的修饰符来修饰变量和声明属性。
 ```
 
 ##weak(ARC)
- - 弱指针是针对对象的修饰词 , 就是说它不能修饰基本数据类型 。
- - weak修饰的对象，引用计数不会+1，即直接赋值
- - 弱引用是为打破循环引用而生的，比如在Block中，block在copy的时候，会对内部使用到的对象的引用技术+1，如果使用[self 方法名]，那么就会有一个强指针指向self所在的class的内存地址，class的引用计数会+1，这样一来会导致class所在的内存地址无法被释放，造成内存泄漏 .
- - 它所指向的对象如果被销毁 , 它会指向 nil . 而 nil 访问什么鬼都不会报野指针错误 .(它最被人所喜欢的原因是 它所指向的对象如果被销毁 , 它会指向 nil . 从而不会出现野指针错误 .)
-
+- 弱指针是针对对象的修饰词 , 就是说它不能修饰基本数据类型 。
+- weak修饰的对象，引用计数不会+1，即直接赋值
+- 弱引用是为打破循环引用而生的，比如在Block中，block在copy的时候，会对内部使用到的对象的引用技术+1，如果使用[self 方法名]，那么就会有一个强指针指向self所在的class的内存地址，class的引用计数会+1，这样一来会导致class所在的内存地址无法被释放，造成内存泄漏 .
+- 它所指向的对象如果被销毁 , 它会指向 nil . 而 nil 访问什么鬼都不会报野指针错误 .(它最被人所喜欢的原因是 它所指向的对象如果被销毁 , 它会指向 nil . 从而不会出现野指针错误 .)
 - xib/storybard连接的对象为什么可以使用weak:
     ```objc
     @property (nonatomic, weak) IBOutlet UIButton *button;
@@ -55,13 +54,17 @@ ARC还引入了新的修饰符来修饰变量和声明属性。
     @property (nonatomic, strong) UIButton *button;
     ```
 ##assign(ARC/MRC)
-  - assign在ARC和MRC中都是存在的
-  - assign一般用来修饰基本数据类型,这个修饰词是直接赋值的意思,使用assign: 对基础数据类型 （NSInteger，CGFloat）和C数据类型（int, float, double, char, 等等）
-  - assign也可用来修饰对象,但是，对象的引用计数不会+1（与strong的区别）
-  - assign如果用来修饰对象属性，当对象销毁后指针不会指向nil，会出现野指针错误(与weak的区别)
-  - 在MRC用assign来修饰代理，是为了防止循环引用。
-  - 如果没有使用 weak strong retain copy 修饰 , 那么默认就是使用 assign 了. ( 它们之间是有你没我的关系 )
+- assign在ARC和MRC中都是存在的
+- assign一般用来修饰基本数据类型,这个修饰词是直接赋值的意思,使用assign: 对基础数据类型 （NSInteger，CGFloat）和C数据类型（int, float, double, char, 等等）
+- assign也可用来修饰对象,但是，对象的引用计数不会+1（与strong的区别）
+- assign如果用来修饰对象属性，当对象销毁后指针不会指向nil，会出现野指针错误(与weak的区别)
+- 在MRC用assign来修饰代理，是为了防止循环引用。
+- 如果没有使用 weak strong retain copy 修饰 , 那么默认就是使用 assign 了. ( 它们之间是有你没我的关系 )
   
+##copy(ARC/MRC)
+ 
+ - 在 MRC 时是这样做的 release 旧对象( 旧对象计数器 -1 ) , copy 新对象( 新对象计数器 +1 ) , 然后指向新对象 。
+ - 在 ARC 时是这么干的 copy 新对象( 新对象计数器 +1 ) , 然后指向新对象 。
 
   
   
