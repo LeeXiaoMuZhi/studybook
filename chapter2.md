@@ -27,7 +27,12 @@ ARC还引入了新的修饰符来修饰变量和声明属性。
 ##strong(ARC)
  - 直接赋值，对象引用计数+1
  - 功能等价于MRC里面的retain(在 ARC 里替代了 retain 的作用)
-
+```objc
+        // 默认会是什么呢？
+        @property (nonatomic) NSString *name;
+        // 默认是strong类型
+        @property (nonatomic) NSArray *array;
+```
 
 ##weak(ARC)
 
